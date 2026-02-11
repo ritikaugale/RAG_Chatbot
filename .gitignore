@@ -5,3 +5,4 @@ __pycache__/
 .data/
 data/pdf_files/*
 data/text_files/*
+.DS_Store
