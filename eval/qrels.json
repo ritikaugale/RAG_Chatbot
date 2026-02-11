@@ -1,0 +1,14 @@
+[
+  {
+    "question": "What is object detection?",
+    "relevant_sourcefiles": ["Object detection.pdf"]
+  },
+  {
+    "question": "What are smart assistive navigation devices?",
+    "relevant_sourcefiles": ["smart navigation.pdf"]
+  },
+  {
+    "question": "What is the SSD algorithm used for?",
+    "relevant_sourcefiles": ["ssd algorithm.pdf"]
+  }
+]
