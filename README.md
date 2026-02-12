@@ -112,99 +112,133 @@ RAG_Chatbot/
 ├── .gitignore
 └── README.md
 
-
+---
 ## ⚙️ Setup & Installation
 
-## Setup
+### 1. Clone the repository
 
-1. Clone the repository
-
-'''bash
+```bash
 git clone https://github.com/ritikaugale/RAG_Chatbot.git
 cd RAG_Chatbot
+```
 
-2. Create and activate a virtual environment
-'''bash
+### 2. Create and activate a virtual environment
+
+```bash
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
+```
 
-3. Install dependencies
-'''bash
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
+```
 
-4. Configure environment variables
+### 4. Configure environment variables
 
-# set your Groq key
-cp .env.example .env  # if you create an example file
-# edit .env and set GROQ_API_KEY=...
+```bash
+# Set your Groq key
+cp .env.example .env
+# Edit .env and set:
+GROQ_API_KEY=your_api_key_here
+```
 
-5. Prepare data folders 
-'''bash
+### 5. Prepare data folders
+
+```bash
 mkdir -p data/pdf_files data/text_files
+```
+
+---
 
 ## 🚀 Running the App
-You run the backend and frontend in separate terminals (same venv).
 
-1. Start the FastAPI backend
+Run the backend and frontend in **separate terminals** (same virtual environment).
 
-'''bash
+### 1. Start the FastAPI backend
+
+```bash
 uvicorn api.main:app --reload
+```
 
+### 2. Start the Streamlit frontend
 
-2. Start the Streamlit frontend
-
-'''bash
+```bash
 streamlit run ui/streamlit_app.py
+```
 
+---
 
-## Using the Chatbot
+## 💬 Using the Chatbot
 
-1. Inspect the corpus
-In the Streamlit sidebar:
-    “Corpus overview” shows:
+### 1. Inspect the Corpus
 
-            Number of documents.
-            Number of chunks.
-            List of source paths (PDF/TXT filenames). 
+In the Streamlit sidebar, **Corpus Overview** shows:
 
-2. Upload your own documents
+- Number of documents  
+- Number of chunks  
+- List of source paths (PDF/TXT filenames)  
 
-        Use “Upload PDFs or TXT” in the sidebar.
-        Select one or more .pdf / .txt files.
-        Click “Save uploaded files”.
-        The backend saves them into data/pdf_files / data/text_files and rebuilds the index on the next question.
+---
 
-3. Ask questions
+### 2. Upload Your Own Documents
 
-    Type a question in the chat input (e.g. “What is the SSD algorithm used for?”).
+1. Use **“Upload PDFs or TXT”** in the sidebar  
+2. Select one or more `.pdf` / `.txt` files  
+3. Click **“Save uploaded files”**  
 
-    The app:
+The backend will:
+- Save them into `data/pdf_files` / `data/text_files`
+- Rebuild the FAISS index on the next query  
 
-        Embeds your query.
-        Retrieves top‑k relevant chunks via FAISS.
-        Sends context + question to the Groq LLM.
-        Streams the answer back to the chat UI.
+---
 
-4. Use “Show retrieved contexts” to see exactly which snippets were used. 
+### 3. Ask Questions
 
-5. Tune retrieval
+Type a question in the chat input  
+Example:
 
-        Adjust Top K contexts slider in the sidebar (e.g. from 3 to 8).
-        Higher k = more context, potentially better recall but more noise.
+> What is the SSD algorithm used for?
 
+The app will:
+
+1. Embed your query  
+2. Retrieve top-k relevant chunks via FAISS  
+3. Send context + question to the Groq LLM  
+4. Stream the answer back to the chat UI  
+
+---
+
+### 4. Show Retrieved Contexts
+
+Enable **“Show retrieved contexts”** to inspect the exact chunks used for answer generation.
+
+---
+
+### 5. Tune Retrieval
+
+Adjust the **Top-K contexts slider** in the sidebar (e.g., from 3 to 8).
+
+- Higher `k` → better recall  
+- Higher `k` → more noise + longer responses  
+
+---
 
 ## 📊 Evaluation (Precision@k)
 
-1. Prepare a qrels.json as given in example
+### 1. Prepare `qrels.json`
 
-2. Run evaluation
-'''bash
+Create a `qrels.json` file as shown in the example.
+
+### 2. Run evaluation
+
+```bash
 python -m rag_files.eval
+```
 
-
+---
 
 ## 📄 License
 
-MIT licence
-
-
+MIT License
